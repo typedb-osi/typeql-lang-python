@@ -31,3 +31,4 @@ TypeDB’s query language performs logical inference through [deductive reasonin
 
 With the expressivity of the schema, inference through OLTP, and distributed algorithms through OLAP, TypeDB provides a strong abstraction over low-level data constructs and complicated relationships through its query language. The language provides a higher-level schema, OLTP, and OLAP query language, which makes working with complex data a lot easier. When developers can achieve more by writing less code, the productivity rate increases by orders of magnitude.
 
+ 
