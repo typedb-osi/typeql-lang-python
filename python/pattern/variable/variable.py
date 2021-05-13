@@ -1,27 +1,27 @@
 from abc import ABC, abstractmethod
 
-class Variable(ABC):
 
+class Variable(ABC):
     def __init__(self, reference):
         self._reference = reference
-    
+
     @property
     @abstractmethod
     def constraints(self):
         pass
-    
+
     @abstractmethod
     def is_unbound(self) -> bool:
         return False
-    
+
     @abstractmethod
     def is_bound(self) -> bool:
         return False
-    
+
     @abstractmethod
     def is_concept(self) -> bool:
         return False
-    
+
     @abstractmethod
     def is_type(self) -> bool:
         return False
@@ -29,14 +29,14 @@ class Variable(ABC):
     @abstractmethod
     def is_thing(self) -> bool:
         return False
-    
+
     @abstractmethod
     def as_unbound(self):
-        raise # TODO
+        raise  # TODO
 
     @abstractmethod
     def as_bound(self):
-        raise # TODO
+        raise  # TODO
 
     @abstractmethod
     def variables(self):
@@ -54,7 +54,7 @@ class Variable(ABC):
             return self._reference.as_name.name()
         else:
             return None
-    
+
     @property
     @abstractmethod
     def reference(self):
@@ -63,7 +63,7 @@ class Variable(ABC):
     @abstractmethod
     def is_named(self) -> bool:
         return self._reference.is_named()
-    
+
     @abstractmethod
     def is_labelled(self) -> bool:
         return self._reference.is_labelled()

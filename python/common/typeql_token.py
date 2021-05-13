@@ -1,6 +1,8 @@
 from __future__ import annotations
-from typing import Optional
+
 from enum import Enum, EnumMeta
+from typing import Optional
+
 
 class TypeQLToken:
 

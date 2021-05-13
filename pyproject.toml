@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "typeql-lang-python"
+version = "0.0.1"
+description = "TypeQL language library for python"
+authors = ["Lightoyou <vincent.rome@protonmail.com>"]
+license = "Apache License 2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.6"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.vulture]
+paths = ["python"]
+sort_by_size = true
+verbose = true
+
+[tool.isort]
+profile = "black"

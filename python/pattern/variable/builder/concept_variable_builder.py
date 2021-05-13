@@ -1,8 +1,7 @@
-
 from abc import ABC
 
-class ConceptVariableBuilder(ABC):
 
+class ConceptVariableBuilder(ABC):
     @abstractmethod
     def iS(self, var):
         if type(var) is str:
