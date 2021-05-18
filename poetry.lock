@@ -1,0 +1,36 @@
+[[package]]
+name = "antlr4-python3-runtime"
+version = "4.7.2"
+description = "ANTLR 4.7.2 runtime for Python 3.6.3"
+category = "main"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "typeql-grammar"
+version = "0.0.0-82e293af61b06b5364949afae50f453794a9fea7"
+description = "TypeQL Grammar for Python"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+antlr4-python3-runtime = "4.7.2"
+
+[package.source]
+type = "legacy"
+url = "https://repo.vaticle.com/repository/pypi-snapshot/simple"
+reference = "vaticle-pypi-snapshot"
+
+[metadata]
+lock-version = "1.1"
+python-versions = "^3.6"
+content-hash = "c9101e5f5f1fe849e10b9c484f3b9d878c806ff3ea70ec8654480d07ec3ac9a7"
+
+[metadata.files]
+antlr4-python3-runtime = [
+    {file = "antlr4-python3-runtime-4.7.2.tar.gz", hash = "sha256:168cdcec8fb9152e84a87ca6fd261b3d54c8f6358f42ab3b813b14a7193bb50b"},
+]
+typeql-grammar = [
+    {file = "typeql-grammar-0.0.0-82e293af61b06b5364949afae50f453794a9fea7.tar.gz", hash = "md5:9ae777d4fd5f4373bdbb668a067fab91"},
+]
