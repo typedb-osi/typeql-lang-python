@@ -18,3 +18,4 @@ class InsertOrDelete(TypeQLWritable):
     def __str__(self):
     def __eq__(self):
     def __hash__(self):
+        return hash((self., self.))
