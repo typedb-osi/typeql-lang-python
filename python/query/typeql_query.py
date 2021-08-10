@@ -1,12 +1,18 @@
 from abc import ABC, abstractmethod
-
-
+from common.exception.typeql_exception import INVALID_CASTING, TypeQLException
+from typeql_define import TypeQLDefine
+from typeql_undefine import TypeQL
 class TypeQLQuery(ABC):
+
+    @abstractmethod
+    def type(self):
+        return pass
+
     def as_define(self):
         if isinstance(self, TypeQLDefine):
             return self
         else:
-            raise  # TODO
+            raise TypeQLException.of(INVALID_CASTING, self.__name__, )
 
     def as_undefine(self):
         if isinstance(self, TypeQLUndefine):

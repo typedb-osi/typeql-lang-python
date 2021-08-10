@@ -1,3 +1,4 @@
+from query.typeql_query import TypeQLQuery
 class TypeQLWritable(TypeQLQuery):
     def __init__(self, match):
         self._match = match
