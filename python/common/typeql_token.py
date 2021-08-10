@@ -1,18 +1,36 @@
 from __future__ import annotations
 
 from enum import Enum, EnumMeta
-from typing import Optional
+from typing import Optional, Union
+
+
+class IPredicate(EnumMeta):
+    @classmethod
+    def is_equality(self) -> bool:
+        return False
+
+    @classmethod
+    def is_substring(self) -> bool:
+        return False
+
+    @classmethod
+    def as_equality(self):
+        pass
+        # TODO raise
+
+    @classmethod
+    def as_substring(self):
+        pass
+        # TODO raise
 
 
 class TypeQLToken:
-
     class Type(Enum):
         THING = "thing"
         ENTITY = "entity"
         ATTRIBUTE = "attribute"
-        RELATION ="relation"
+        RELATION = "relation"
         ROLE = "role"
-
 
     class Command(Enum):
         COMPUTE = "compute"
@@ -23,9 +41,10 @@ class TypeQLToken:
         MATCH = "match"
         AGGREGATE = "aggregate"
         GROUP = "group"
-        
-        @staticmethod
+
+        @classmethod
         def of(
+            cls,
             value: str,
         ) -> Union[
             Command.COMPUTE,
@@ -34,14 +53,13 @@ class TypeQLToken:
             Command.INSERT,
             Command.MATCH,
             Command.AGGREGATE,
-            Command.GROUP
-            None,
+            Command.GROUP,
+            None
         ]:
-            for c in Command:
+            for c in cls:
                 if c.value == value:
                     return c
             return None
-
 
     class Filter(Enum):
         GET = "get"
@@ -49,17 +67,12 @@ class TypeQLToken:
         OFFSET = "offset"
         LIMIT = "limit"
 
-        @staticmethod
+        @classmethod
         def of(
+            cls,
             value: str,
-        ) -> Union[
-            Filter.GET,
-            Filter.SORT,
-            Filter.OFFSET,
-            Command.LIMIT,
-            None,
-        ]:
-            for c in Filter:
+        ) -> Union[Filter.GET, Filter.SORT, Filter.OFFSET, Filter.LIMIT, None]:
+            for c in cls:
                 if c.value == value:
                     return c
             return None
@@ -77,15 +90,16 @@ class TypeQLToken:
         PARAN_CLOSE = ")"
         SQUARE_OPEN = "["
         SQUARE_CLOSE = "]"
-        QUOTE_DOUBLE = "\""
+        QUOTE_DOUBLE = '"'
         QUOTE_SINGLE = "'"
         NEW_LINE = "\n"
         UNDERSCORE = "_"
-        VAR_  = "$_"
+        VAR_ = "$_"
         VAR = "$"
-        
-        @staticmethod
+
+        @classmethod
         def of(
+            cls,
             value: str,
         ) -> Union[
             Char.EQUAL,
@@ -105,54 +119,26 @@ class TypeQLToken:
             Char.UNDERSCORE,
             Char.VAR_,
             Char.VAR,
-            None,
+            None
         ]:
-            for c in Char:
+            for c in cls:
                 if c.value == value:
                     return c
-            return None  
-
+            return None
 
     class Operator(Enum):
         AND = "and"
         OR = "or"
         NOT = "not"
 
-        @staticmethod
-        def of(
-            value: str,
-        ) -> Union[
-            Operator.AND,
-            Operator.OR,
-            Operator.NOT,
-            None,
-        ]:
-            for c in Operator:
+        @classmethod
+        def of(cls, value: str) -> Union[Operator.AND, Operator.OR, Operator.NOT, None]:
+            for c in cls:
                 if c.value == value:
                     return c
-            return None  
-
-
-    class IPredicate(EnumMeta):
-
-        @classmethod
-        def is_equality(self) -> bool:
-            return False
-        
-        @classmethod
-        def is_substring(self) -> bool:
-            return False
-        
-        @classmethod
-        def as_equality(self):
-            raise # TODO
-
-        @classmethod
-        def as_substring(self):
-            raise # TODO
+            return None
 
     class Predicate:
-        
         class Equality(Enum, metaclass=IPredicate):
             EQ = "="
             NEQ = "!="
@@ -161,18 +147,14 @@ class TypeQLToken:
             LT = "<"
             LTE = "<="
 
-            @staticmethod
+            @classmethod
             def of(
+                cls,
                 value: str,
             ) -> Union[
-                Equality.EQ,
-                Equality.NEQ,
-                Equality.GT,
-                Equality.LT,
-                Equality.LTE,
-                None,
+                Equality.EQ, Equality.NEQ, Equality.GT, Equality.LT, Equality.LTE, None
             ]:
-                for c in Equality:
+                for c in cls:
                     if c.value == value:
                         return c
                 return None
@@ -180,12 +162,12 @@ class TypeQLToken:
             @classmethod
             def is_equality(self) -> bool:
                 return True
-            
+
             @classmethod
             def as_equality(self):
                 return self
 
-        class SubString(Enum, metaclass=Predicate):
+        class SubString(Enum, metaclass=IPredicate):
             CONTAINS = "contains"
             LIKE = "like"
 
@@ -193,45 +175,31 @@ class TypeQLToken:
             def is_substring(self):
                 return True
 
-            @classmethod         
+            @classmethod
             def as_substring(self):
                 return self
 
-            @staticmethod
-            def of(
-                value: str,
-            ) -> Union[
-                SubString.CONTAINS,
-                SubString.LIKE,
-                None,
-            ]:
-                for c in SubString:
+            @classmethod
+            def of(cls, value: str) -> Union[SubString.CONTAINS, SubString.LIKE, None]:
+                for c in cls:
                     if c.value == value:
                         return c
                 return None
-
 
     class Schema(Enum):
         RULE = "rule"
         THEN = "then"
         WHEN = "when"
 
-        @staticmethod
-        def of(
-            value: str,
-        ) -> Union[
-            Schema.RULE,
-            Schema.THEN,
-            Schema.WHEN,
-            None,
-        ]:
-            for c in Schema:
+        @classmethod
+        def of(cls, value: str) -> Union[Schema.RULE, Schema.THEN, Schema.WHEN, None]:
+            for c in cls:
                 if c.value == value:
                     return c
             return None
 
     class Constraint(Enum):
-        ABSTRACT "abstract"
+        ABSTRACT = "abstract"
         AS = "as"
         HAS = "has"
         IID = "iid"
@@ -248,30 +216,31 @@ class TypeQLToken:
         TYPE = "type"
         VALUE = ""
         VALUE_TYPE = "value"
-    
-        @staticmethod
+
+        @classmethod
         def of(
+            cls,
             value: str,
         ) -> Union[
             Constraint.ABSTRACT,
             Constraint.AS,
             Constraint.HAS,
-            Constraint.IID
-            Constraint.IS
-            Constraint.ISA_KEY
-            Constraint.ISAX
-            Constraint.OWNS
-            Constraint.PLAYS
-            Constraint.REGEX
-            Constraint.RELATES
-            Constraint.SUB
-            Constraint.SUBX
-            Constraint.TYPE
-            Constraint.VALUE
-            Constraint.VALUE_TYPE
-            None,
+            Constraint.IID,
+            Constraint.IS,
+            Constraint.ISA_KEY,
+            Constraint.ISAX,
+            Constraint.OWNS,
+            Constraint.PLAYS,
+            Constraint.REGEX,
+            Constraint.RELATES,
+            Constraint.SUB,
+            Constraint.SUBX,
+            Constraint.TYPE,
+            Constraint.VALUE,
+            Constraint.VALUE_TYPE,
+            None
         ]:
-            for c in Constraint:
+            for c in cls:
                 if c.value == value:
                     return c
             return None
@@ -280,49 +249,42 @@ class TypeQLToken:
         TRUE = "true"
         FALSE = "false"
 
-        @staticmethod
-        def of(
-            value: str,
-        ) -> Union[
-            Literal.TRUE,
-            Literal.FALSE,
-            None,
-        ]:
-            for c in Literal:
+        @classmethod
+        def of(cls, value: str) -> Union[Literal.TRUE, Literal.FALSE, None]:
+            for c in cls:
                 if c.value == value:
                     return c
             return None
-    
-    class Aggregate:
 
+    class Aggregate:
         class Method(Enum):
             COUNT = "count"
             MAX = "max"
             MEAN = "mean"
             MEDIAN = "median"
             MIN = "min"
-            STD ="std"
+            STD = "std"
             SUM = "sum"
-        
-        @staticmethod
-        def of(
-            value: str,
-        ) -> Union[
-            Method.COUNT,
-            Method.MAX,
-            Method.MEAN,
-            Method.MIN,
-            Method.STD,
-            Method.SUM,
-            None,
-        ]:
-            for c in Method:
-                if c.value == value:
-                    return c
-            return None
+
+            @classmethod
+            def of(
+                cls,
+                value: str,
+            ) -> Union[
+                Method.COUNT,
+                Method.MAX,
+                Method.MEAN,
+                Method.MIN,
+                Method.STD,
+                Method.SUM,
+                None
+            ]:
+                for c in cls:
+                    if c.value == value:
+                        return c
+                return None
 
     class Compute:
-
         class Method(Enum):
             COUNT = "count"
             MIN = "min"
@@ -332,29 +294,30 @@ class TypeQLToken:
             STD = "std"
             SUM = "sum"
             PATH = "path"
-            CENTRALITY ="centrality"
+            CENTRALITY = "centrality"
             CLUSTER = "cluster"
-        
-        @staticmethod
-        def of(
-            value: str,
-        ) -> Union[
-            Method.COUNT,
-            Method.MIN,
-            Method.MAX,
-            Method.MEDIAN,
-            Method.MEAN,
-            Method.STD,
-            Method.SUM,
-            Method.PATH,
-            Method.CENTRALITY,
-            Method.CLUSTER,
-            None,
-        ]:
-            for c in Method:
-                if c.value == value:
-                    return c
-            return None
+
+            @classmethod
+            def of(
+                cls,
+                value: str,
+            ) -> Union[
+                Method.COUNT,
+                Method.MIN,
+                Method.MAX,
+                Method.MEDIAN,
+                Method.MEAN,
+                Method.STD,
+                Method.SUM,
+                Method.PATH,
+                Method.CENTRALITY,
+                Method.CLUSTER,
+                None
+            ]:
+                for c in cls:
+                    if c.value == value:
+                        return c
+                return None
 
         class Condition(Enum):
             FROM = "from"
@@ -363,9 +326,10 @@ class TypeQLToken:
             IN = "in"
             USING = "using"
             WHERE = "where"
-        
-            @staticmethod
+
+            @classmethod
             def of(
+                cls,
                 value: str,
             ) -> Union[
                 Condition.FROM,
@@ -374,30 +338,26 @@ class TypeQLToken:
                 Condition.IN,
                 Condition.USING,
                 Condition.WHERE,
-                None,
+                None
             ]:
-                for c in Condition:
+                for c in classmethod:
                     if c.value == value:
                         return c
                 return None
-        
+
         class Param(Enum):
             MIN_K = "min-k"
             K = "k"
             CONTAINS = "contains"
             SIZE = "size"
 
-            @staticmethod
+            @classmethod
             def of(
+                cls,
                 value: str,
-            ) -> Union[
-                Param.MIN_K,
-                Param.K,
-                Param.CONTAINS,
-                Param.SIZE,
-                None,
-            ]:
+            ) -> Union[Param.MIN_K, Param.K, Param.CONTAINS, Param.SIZE, None]:
                 for c in Param:
                     if c.value == value:
                         return c
                 return None
+
