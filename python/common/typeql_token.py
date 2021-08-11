@@ -44,8 +44,7 @@ class TypeQLToken:
 
         @classmethod
         def of(
-            cls,
-            value: str,
+            cls, value: str,
         ) -> Union[
             Command.COMPUTE,
             Command.DEFINE,
@@ -54,12 +53,16 @@ class TypeQLToken:
             Command.MATCH,
             Command.AGGREGATE,
             Command.GROUP,
-            None
+            None,
         ]:
             for c in cls:
                 if c.value == value:
                     return c
             return None
+        
+        def __str__(self)->str:
+            return str(self.value)
+
 
     class Filter(Enum):
         GET = "get"
@@ -69,13 +72,15 @@ class TypeQLToken:
 
         @classmethod
         def of(
-            cls,
-            value: str,
+            cls, value: str,
         ) -> Union[Filter.GET, Filter.SORT, Filter.OFFSET, Filter.LIMIT, None]:
             for c in cls:
                 if c.value == value:
                     return c
             return None
+        
+        def __str__(self)->str:
+            return str(self.value)
 
     class Char(Enum):
         EQUAL = "="
@@ -99,8 +104,7 @@ class TypeQLToken:
 
         @classmethod
         def of(
-            cls,
-            value: str,
+            cls, value: str,
         ) -> Union[
             Char.EQUAL,
             Char.COLON,
@@ -119,12 +123,16 @@ class TypeQLToken:
             Char.UNDERSCORE,
             Char.VAR_,
             Char.VAR,
-            None
+            None,
         ]:
             for c in cls:
                 if c.value == value:
                     return c
             return None
+        
+        def __str__(self)->str:
+            return str(self.value)
+
 
     class Operator(Enum):
         AND = "and"
@@ -137,6 +145,9 @@ class TypeQLToken:
                 if c.value == value:
                     return c
             return None
+        
+        def __str__(self)->str:
+            return str(self.value)
 
     class Predicate:
         class Equality(Enum, metaclass=IPredicate):
@@ -149,8 +160,7 @@ class TypeQLToken:
 
             @classmethod
             def of(
-                cls,
-                value: str,
+                cls, value: str,
             ) -> Union[
                 Equality.EQ, Equality.NEQ, Equality.GT, Equality.LT, Equality.LTE, None
             ]:
@@ -167,6 +177,8 @@ class TypeQLToken:
             def as_equality(self):
                 return self
 
+            def __str__(self)->str:
+                return str(self.value)
         class SubString(Enum, metaclass=IPredicate):
             CONTAINS = "contains"
             LIKE = "like"
@@ -185,6 +197,9 @@ class TypeQLToken:
                     if c.value == value:
                         return c
                 return None
+            
+            def __str__(self)->str:
+                return str(self.value)
 
     class Schema(Enum):
         RULE = "rule"
@@ -197,6 +212,9 @@ class TypeQLToken:
                 if c.value == value:
                     return c
             return None
+
+        def __str__(self)->str:
+            return str(self.value)
 
     class Constraint(Enum):
         ABSTRACT = "abstract"
@@ -219,8 +237,7 @@ class TypeQLToken:
 
         @classmethod
         def of(
-            cls,
-            value: str,
+            cls, value: str,
         ) -> Union[
             Constraint.ABSTRACT,
             Constraint.AS,
@@ -238,12 +255,15 @@ class TypeQLToken:
             Constraint.TYPE,
             Constraint.VALUE,
             Constraint.VALUE_TYPE,
-            None
+            None,
         ]:
             for c in cls:
                 if c.value == value:
                     return c
             return None
+
+        def __str__(self)->str:
+            return str(self.value)
 
     class Literal(Enum):
         TRUE = "true"
@@ -255,7 +275,9 @@ class TypeQLToken:
                 if c.value == value:
                     return c
             return None
-
+        
+        def __str__(self)->str:
+            return str(self.value)
     class Aggregate:
         class Method(Enum):
             COUNT = "count"
@@ -268,8 +290,7 @@ class TypeQLToken:
 
             @classmethod
             def of(
-                cls,
-                value: str,
+                cls, value: str,
             ) -> Union[
                 Method.COUNT,
                 Method.MAX,
@@ -277,12 +298,15 @@ class TypeQLToken:
                 Method.MIN,
                 Method.STD,
                 Method.SUM,
-                None
+                None,
             ]:
                 for c in cls:
                     if c.value == value:
                         return c
                 return None
+
+            def __str__(self)->str:
+                return str(self.value)
 
     class Compute:
         class Method(Enum):
@@ -299,8 +323,7 @@ class TypeQLToken:
 
             @classmethod
             def of(
-                cls,
-                value: str,
+                cls, value: str,
             ) -> Union[
                 Method.COUNT,
                 Method.MIN,
@@ -312,12 +335,15 @@ class TypeQLToken:
                 Method.PATH,
                 Method.CENTRALITY,
                 Method.CLUSTER,
-                None
+                None,
             ]:
                 for c in cls:
                     if c.value == value:
                         return c
                 return None
+
+            def __str__(self)->str:
+                return str(self.value)
 
         class Condition(Enum):
             FROM = "from"
@@ -329,8 +355,7 @@ class TypeQLToken:
 
             @classmethod
             def of(
-                cls,
-                value: str,
+                cls, value: str,
             ) -> Union[
                 Condition.FROM,
                 Condition.TO,
@@ -338,13 +363,15 @@ class TypeQLToken:
                 Condition.IN,
                 Condition.USING,
                 Condition.WHERE,
-                None
+                None,
             ]:
                 for c in classmethod:
                     if c.value == value:
                         return c
                 return None
 
+            def __str__(self)->str:
+                return str(self.value)
         class Param(Enum):
             MIN_K = "min-k"
             K = "k"
@@ -353,11 +380,12 @@ class TypeQLToken:
 
             @classmethod
             def of(
-                cls,
-                value: str,
+                cls, value: str,
             ) -> Union[Param.MIN_K, Param.K, Param.CONTAINS, Param.SIZE, None]:
                 for c in Param:
                     if c.value == value:
                         return c
                 return None
 
+            def __str__(self)->str:
+                return str(self.value)

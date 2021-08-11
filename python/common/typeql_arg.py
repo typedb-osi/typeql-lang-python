@@ -55,8 +55,7 @@ class TypeQLArg:
 
         @classmethod
         def of(
-            cls,
-            value: str,
+            cls, value: str,
         ) -> Union[
             Algorithm.DEGREE, Algorithm.K_CORE, Algorithm.CONNECTED_COMPONENT, None
         ]:
@@ -64,4 +63,3 @@ class TypeQLArg:
                 if c.value == value:
                     return c
             return None
-
