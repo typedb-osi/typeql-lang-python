@@ -1,38 +1,35 @@
+from query.typeql_query import TypeQLQuery
+from pattern.variable.unbound_variable import UnboundVariable
+from common.typeql_token import TypeQLToken
 class Aggregatable(TypeQLQuery):
-    @abstracmethod
-    def _aggregate(self, method, var):
+    def __init__(self, method, var):
         pass
 
-    @abstracmethod
-    def _count(self):
-        return self._aggregate(COUNT, None)
+    def count(self):
+        return self._aggregate(TypeQLToken.Aggregate.Method.COUNT, None)
 
-    @abstracmethod
-    def _max(self, var):
+    def max(self, var):
         if type(var) == str:
-            var = UnboundVariable.named(var)
-        return _aggregate(MAX, var)
+            return self.max(UnboundVariable.named(var))
+        return self._aggregate(TypeQLToken.Aggregate.Method.MAX, var)
 
-    @abstracmethod
-    def _mean(self, var):
-        if type == str:
-            var = UnboundVariable.named(var)
-        return _aggregate(MEAN, var)
-
-    @abstracmethod
-    def _median(self, var):
+    def mean(self, var):
         if type(var) == str:
-            var = UnboundVariable.named(var)
-        return _aggregate(MEDIAN, var)
+            return self.mean(UnboundVariable.named(var))
+        return self._aggregate(TypeQLToken.Aggregate.Method.MEAN, var)
 
-    @abstracmethod
-    def _min(self, var):
+    def median(self, var):
         if type(var) == str:
-            var = UnboundVariable.named(var)
-        return _aggregate(STD, var)
+            return self.median(UnboundVariable.named(var))
+        return self._aggregate(TypeQLToken.Aggregate.Method.MEDIAN, var)
 
-    @abstracmethod
-    def _sum(self, var):
+    def min(self, var):
         if type(var) == str:
-            var = UnboundVariable.named(var)
-        return _aggregate(SUM, var)
+            return self.min(UnboundVariable.named(var))
+        return self._aggregate(TypeQLToken.Aggregate.Method.STD, var)
+
+    def sum(self, var):
+        if type(var) == str:
+            return self.sum(UnboundVariable.named(var))
+        return self._aggregate(TypeQLToken.Aggregate.Method.SUM, var)
+

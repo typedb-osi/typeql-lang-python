@@ -1,7 +1,10 @@
 from abc import ABC, abstractmethod
 from common.exception.typeql_exception import INVALID_CASTING, TypeQLException
-from typeql_define import TypeQLDefine
-from typeql_undefine import TypeQL
+from query.typeql_define import TypeQLDefine
+from query.typeql_undefine import TypeQLUndefine
+from query.typeql_insert import TypeQLInsert
+from query.typeql_delete import TypeQLDelete
+
 class TypeQLQuery(ABC):
 
     @abstractmethod

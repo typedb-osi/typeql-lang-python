@@ -1,16 +1,33 @@
-
-
+from _typeshed import SupportsWrite
+from abc import ABC, abstractmethod
 class Computable(ABC):
 
-    @abstracmethod
+    @abstractmethod
     def method(self):
         pass
-
-    def conditions_required():
+    
+    @abstractmethod
+    def conditions_required(self):
         pass
     
-    def get_exception():
+    @abstractmethod
+    def get_exception(self):
         pass
+
+    class Directional(Computable):
+
+        # TODO add dispatcher
+        @abstractmethod
+        def from_(self, from_id: str) -> str:
+            pass
+        
+        @abstractmethod
+        def to(self, to_id: str) -> str:
+            pass
+        
+
+      
+
 
 class Argument(ABC):
     def _type():
@@ -20,6 +37,7 @@ class Argument(ABC):
         pass
 
 class Arguments(ABC):
+
     def _min_K():
         pass
     
@@ -50,17 +68,20 @@ class Scopeable(Computable):
     def attributes(self, include):
         pass
 
-
-class Configurable(Computable):
-
-    def using():
-        pass
-    
-    def where():
-        pass
-    
-    def algorithms_accepted():
-        pass
-    
-    def argumentes_default():
-        pass
+    class Configurable(Computable):
+        
+        @abstractmethod
+        def using(self):
+            pass
+        
+        @abstractmethod
+        def where():
+            pass
+        
+        @abstractmethod
+        def algorithms_accepted():
+            pass
+        
+        @abstractmethod
+        def argumentes_default():
+            pass
