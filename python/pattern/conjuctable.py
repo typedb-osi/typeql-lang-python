@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-
+from pattern.pattern import IPattern
 
 class Conjunctable(IPattern):
     @abstractmethod

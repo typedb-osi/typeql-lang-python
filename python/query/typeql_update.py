@@ -1,4 +1,5 @@
 from query.typeql_writable import TypeQLWritable
+from common.typeql_token import TypeQLToken
 
 class TypeQLUpdate(TypeQLWritable):
 
@@ -36,7 +37,16 @@ class TypeQLUpdate(TypeQLWritable):
             pass #TODO
     
     def __str__(self):
-        pass
+        query: str = ""
+        query += self._match + TypeQLToken.Char.NEW_LINE
+        query += TypeQLToken.Command.DELETE
+        if len(self._delete_variables) > 1:
+            query += TypeQLToken.Char.NEW_LINE
+        else:
+            query += TypeQLToken.Char.SPACE
+        # TODO
+        query += TypeQLToken.Char.SEMICOLON
+        return query
 
     def __eq__(self):
         pass

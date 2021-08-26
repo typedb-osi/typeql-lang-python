@@ -4,12 +4,15 @@ from query.typeql_define import TypeQLDefine
 from query.typeql_undefine import TypeQLUndefine
 from query.typeql_insert import TypeQLInsert
 from query.typeql_delete import TypeQLDelete
+from query.typeql_update import TypeQLUpdate
+from query.typeql_match import TypeQLMatch
+from query.typeql_compute import TypeQLCompute
 
 class TypeQLQuery(ABC):
 
     @abstractmethod
     def type(self):
-        return pass
+        pass
 
     def as_define(self):
         if isinstance(self, TypeQLDefine):

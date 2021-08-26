@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
-
-
+from common.exception.typeql_exception import TypeQLException, INVALID_CASTING
+from pattern.conjunction import Conjunction
+from pattern.disjunction import Disjunction
+from pattern.negation import Negation
+from pattern.variable.bound_variable import BoundVariable
 class IPattern(ABC):
     @abstractmethod
     def normalise(self):
@@ -54,12 +57,12 @@ class IPattern(ABC):
 
     @abstractmethod
     def as_negation(self):
-        raise GraqlException.of(
+        raise TypeQLException.of(
             INVALID_CASTING, self.__class__.__name__, Negation.__class__.__name__
         )
 
     @abstractmethod
     def as_conjuctable(self):
-        raise GraqlException.of(
+        raise TypeQLException.of(
             INVALID_CASTING, self.__class__.__name__, Negation.__class__.__name__
         )

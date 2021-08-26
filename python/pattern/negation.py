@@ -1,4 +1,5 @@
-
+from pattern.conjuctable import Conjunctable
+from common.exception.typeql_exception import TypeQLException,REDUNDANT_NESTED_NEGATION
 class Negation(Conjunctable):
 
     def __init__(self, pattern: list, normalised):
@@ -7,7 +8,7 @@ class Negation(Conjunctable):
         if pattern == None:
             raise TypeError
         elif pattern.is_negation:
-            raise  GraqlException.of(REDUNDANT_NESTED_NEGATION)
+            raise  TypeQLException.of(REDUNDANT_NESTED_NEGATION)
         else: 
             self._pattern = pattern
     

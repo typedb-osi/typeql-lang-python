@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-
 class Definable(ABC):
     def is_rule(self):
         return False
