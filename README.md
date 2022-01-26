@@ -21,4 +21,4 @@ This library is still under development by the community. You are welcome to con
 
 
 # Notes : 
-<span style="color:red">Project still under developpement </span>
+#### **/!\Project still under developpement**
