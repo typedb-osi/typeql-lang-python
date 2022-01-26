@@ -19,4 +19,6 @@ TypeQL.match(var("x").isa("person").has("name", "alice").has("age", 32));
 
 This library is still under development by the community. You are welcome to contribute to this project development. You can learn more about TypeDB and TypeQL through [vaticle/typedb](https://github.com/vaticle/typedb) and [vaticle/typeql](https://github.com/vaticle/typeql).
 
- 
+
+# Notes : 
+<span style="color:red">Project still under developpement </span>

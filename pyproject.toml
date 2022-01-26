@@ -5,6 +5,9 @@ description = "TypeQL language library for python"
 authors = ["Lightoyou <vincent.rome@protonmail.com>"]
 license = "Apache License 2.0"
 readme = "README.md"
+packages = [
+    	    { include = "typeql" }
+           ]
 
 [[tool.poetry.source]]
 name = "vaticle-pypi-snapshot"
@@ -12,7 +15,7 @@ url = "https://repo.vaticle.com/repository/pypi-snapshot/simple"
 
 [tool.poetry.dependencies]
 python = "^3.6"
-typeql-grammar = "0.0.0-82e293af61b06b5364949afae50f453794a9fea7"
+#typeql-grammar = "0.0.0-82e293af61b06b5364949afae50f453794a9fea7"
 
 [tool.poetry.dev-dependencies]
 
